@@ -37,22 +37,22 @@ uvicorn app.main:app --reload
 Rakendus on saadaval http://127.0.0.1:8000
 
 ### API endpointid
-* GET /source_info: Tagastab tehisintellekt.ee ja selle alamlehtedelt kraabitud andmed.
-* GET /scrape/?url={url}: Kraabib andmed antud URL-ilt ja tema alamlehtedelt
-* POST /ask/: Kasutab OpenAI API-t, et vastata kasutaja küsimusele. Requestiga kaasa tuleb anda JSON, kus on väli "question" täidetud.
+* `GET /source_info`: Tagastab tehisintellekt.ee ja selle alamlehtedelt kraabitud andmed.
+* `GET /scrape/?url={url}`: Kraabib andmed antud URL-ilt ja tema alamlehtedelt
+* `POST /ask/`: Kasutab OpenAI API-t, et vastata kasutaja küsimusele. Requestiga kaasa tuleb anda JSON, kus on väli "question" täidetud.
 ```json
 {
   "question": "Kes on Tehisintellekt võtmeisikud?"
 }
 ```
 ### Rakenduse tööpõhimõte
-Rakendus alustamisel eraldab **scrape_site("https://tehisintellekt.ee")** funktsioon tekst info tehisintellekt.ee veebilehelt ja selle alamlehtedel. Peale seda saab kasutada **GET /source_info** endpointi, et näha kogu saadud infot ning samuti saab ka kasutada **POST /ask** enpointi, mille kaudu saab kasutaja oma küsimuse esitada formaadis:
+Rakendus alustamisel eraldab `scrape_site("https://tehisintellekt.ee")` funktsioon tekst info tehisintellekt.ee veebilehelt ja selle alamlehtedel. Peale seda saab kasutada `GET /source_info` endpointi, et näha kogu saadud infot ning samuti saab ka kasutada `POST /ask` enpointi, mille kaudu saab kasutaja oma küsimuse esitada formaadis:
 ```json
 {
   "question": "Kasutaja küsimus"
 }
 ```
-Endpoint kasutab **openAI_query("Kasutaja küsimus")** , kus antakse globaalse **scrape_data** muutuja abil edasi rakenduse käivitamisel eraldatud info ja antakse see edasi OpenAI mudelile koos juhendiga, kuidas ja mille põhjal peab see küsimusele vastama. Kasutajale tagastatakse siis vastus formaadis: 
+Endpoint kasutab `openAI_query("Kasutaja küsimus")` , kus antakse globaalse `scrape_data` muutuja abil edasi rakenduse käivitamisel eraldatud info ja antakse see edasi OpenAI mudelile koos juhendiga, kuidas ja mille põhjal peab see küsimusele vastama. Kasutajale tagastatakse siis vastus formaadis: 
 ```json
 {
     "user_question": "Kes on andmeteadus OÜ tegevjuht?",
@@ -68,7 +68,7 @@ Endpoint kasutab **openAI_query("Kasutaja küsimus")** , kus antakse globaalse *
 ```
 Kui edastatud infos pole infot küsimusele vastamiseks, siis vastuse väljas vastuseks antakse, et "Andmed puuduvad"
 
-Rakendusel on ka Endpoint **GET /scrape/?url={url}**, mille kaudu saab eraldada antud URL-iga lehelt ja selle alamlehtedelt info. See Endpoint on pigem mõeldud, testimiseks, kas tekst info eraldamine töötab. 
+Rakendusel on ka Endpoint `GET /scrape/?url={url}`, mille kaudu saab eraldada antud URL-iga lehelt ja selle alamlehtedelt info. See Endpoint on pigem mõeldud, testimiseks, kas tekst info eraldamine töötab. 
 
 ### Kasutatud package-id
 
@@ -94,7 +94,7 @@ Rakendusel on ka Endpoint **GET /scrape/?url={url}**, mille kaudu saab eraldada 
 * Käiksin üle turvalisuse:
   * Keskonnamuutujad nagu OpenAI API võti turvaliselt hallatud
   * HTTPS kasutamine, et andmete edastamine oleks turvalisem
-  * Kuna hetkel on tegemist avaliku info kasutamisega, siis autentimist ja autoriseerimist pole vaja, kuid kui "klient" peaks tahtma kasutada tundlike andmeid, siis tuleks need lisada.
+  * Kuna hetkel on tegemist avaliku info kasutamisega, siis autentimist ja autoriseerimist pole vaja, kuid kui klient peaks tahtma kasutada tundlike andmeid, siis tuleks need lisada.
 
 * Tuleks lisada rakanduse töö logimine, et oleks kergem jälgida rakenduse tööd ja leida probleemi kohti või vigu.
 
@@ -115,7 +115,7 @@ Rakendusel on ka Endpoint **GET /scrape/?url={url}**, mille kaudu saab eraldada 
 
 ### Kuidas ehitaksin üles rakenduse CI/CD pipeline?
 
-* Tuleks luua kaust *.github/workflows*  ja sinna luua *ci_cd_pipeline.yml* fail
+* Tuleks luua kaust `.github/workflows` ja sinna luua `ci_cd_pipeline.yml` fail
 
 * Fail näeks välja midagi sellist:
 ```yaml
@@ -175,7 +175,7 @@ jobs:
 ```
 * GitHub repo sees tuleks minna Settings ning sealt Secrets and variables, et lisada Dockeri kasutajanimi ja parool.
 
-* Tuleks üle käia ka docker_compose.yml ja vajadusel seda täiustada
+* Tuleks üle käia ka `docker_compose.yml` ja vajadusel seda täiustada
 
 
 ### Kuidas püstitaksin rakenduse Azure keskkonnas?
