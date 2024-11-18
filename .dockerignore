@@ -1,0 +1,15 @@
+venv/
+_pycache_/
+*.pyc
+
+.DS_Store
+
+
+node_modules/
+dist/
+build/
+
+.pytest_cache/
+
+.gitattributes
+.gitignore
